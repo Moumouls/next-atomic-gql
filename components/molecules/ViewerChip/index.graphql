@@ -1,0 +1,6 @@
+fragment ViewerChip on User {
+	firstname
+	picture {
+		url
+	}
+}

@@ -1,0 +1,18 @@
+mutation updateUserOnBoarding(
+	$userId: ID!
+	$firstname: String!
+	$lastname: String!
+) {
+	updateUser(
+		input: {
+			id: $userId
+			fields: { firstname: $firstname, lastname: $lastname }
+		}
+	) {
+		user {
+			id
+			firstname
+			lastname
+		}
+	}
+}

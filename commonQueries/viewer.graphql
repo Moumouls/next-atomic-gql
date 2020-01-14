@@ -1,0 +1,10 @@
+query CommonViewer {
+	viewer {
+		user {
+			id
+			email
+			firstname
+			lastname
+		}
+	}
+}

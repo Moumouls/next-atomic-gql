@@ -1,0 +1,7 @@
+mutation logIn($email: String!, $password: String!) {
+	logIn(input: { username: $email, password: $password }) {
+		viewer {
+			sessionToken
+		}
+	}
+}

@@ -1,0 +1,7 @@
+coverage
+node_modules
+.next
+.storybook
+public
+node_modules
+**/.DS_Store

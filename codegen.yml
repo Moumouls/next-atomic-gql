@@ -1,0 +1,16 @@
+schema:
+    - ./graphql/cloud-schema.graphql
+    - ./graphql/local-schema.graphql
+documents:
+    - ./components/**/*.graphql
+    - ./commonQueries/**/*.graphql
+generates:
+    ./graphql/generated.tsx:
+        plugins:
+            - typescript
+            - typescript-operations
+            - typescript-react-apollo
+        config:
+            withComponent: false
+            withHOC: false
+            withHooks: true
