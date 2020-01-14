@@ -15,6 +15,7 @@ import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { useSignUpMutation } from '@graphql'
 import cookies from 'js-cookie'
+import Router from 'next/router'
 
 export const SignUp = () => {
 	const { formatMessage: f } = useIntl()
@@ -23,8 +24,7 @@ export const SignUp = () => {
 		cookies.set('token', data.signUp.viewer.sessionToken, {
 			expires: 7,
 		})
-		// eslint-disable-next-line
-		window.location.replace('/onboarding')
+		Router.push('/onboarding')
 	}
 
 	const formFields = ({
@@ -133,9 +133,10 @@ export const SignUp = () => {
 				password: '',
 				passwordConfirmation: '',
 			}}
-			onSubmit={({ email, password }) =>
+			onSubmit={({ email, password }) => {
+				cookies.remove('token')
 				signUp({ variables: { email, password } })
-			}
+			}}
 			validationSchema={Yup.object().shape({
 				email: Yup.string()
 					.email(f({ id: 'email.error' }))

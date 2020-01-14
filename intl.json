@@ -5,6 +5,7 @@
 		"password": "Mot de passe",
 		"confirm.password": "Confirmer le mot de passe",
 		"login": "Se connecter",
+		"logout": "Se déconnecter",
 		"signup": "S'inscrire",
 		"login.fail": "Mauvais email ou mot de passe",
 		"edit": "Modifier",
@@ -23,7 +24,8 @@
 		"public.info": "Il sera visible publiquement",
 		"private.info": "Cette information restera privée",
 		"upload": "Télécharger",
-		"next": "Suivant"
+		"next": "Suivant",
+		"welcome": "Bienvenue {firstname} sur Atomic Next 🚀"
 	},
 	"en": {
 		"show": "Show",
@@ -33,6 +35,7 @@
 		"field.required": "This field is required",
 		"signup": "Sign up",
 		"login": "Login",
+		"logout": "Logout",
 		"login.fail": "Wrong email or password",
 		"edit": "Edit",
 		"delete": "Delete",
@@ -62,6 +65,7 @@
 		"upload": "Upload",
 		"id.piece": "Identity document",
 		"next": "Next",
-		"id.piece.info": "We need it to validate your account. This information will remain private"
+		"id.piece.info": "We need it to validate your account. This information will remain private",
+		"welcome": "Welcome {firstname} on Atomic Next 🚀"
 	}
 }

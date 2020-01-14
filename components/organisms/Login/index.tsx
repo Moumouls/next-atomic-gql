@@ -13,6 +13,7 @@ import { VpnKey, Email } from '@material-ui/icons'
 import { useIntl } from 'react-intl'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
+import Router from 'next/router'
 import { useLogInMutation } from '@graphql'
 import cookies from 'js-cookie'
 
@@ -24,8 +25,7 @@ export const Login = () => {
 		cookies.set('token', data.logIn.viewer.sessionToken, {
 			expires: 7,
 		})
-		// eslint-disable-next-line
-		window.location.reload()
+		Router.push('/welcome')
 	}
 
 	const formFields = ({
@@ -112,9 +112,10 @@ export const Login = () => {
 				email: '',
 				password: '',
 			}}
-			onSubmit={({ email, password }) =>
+			onSubmit={({ email, password }) => {
+				cookies.remove('token')
 				login({ variables: { email, password } })
-			}
+			}}
 			validationSchema={Yup.object().shape({
 				email: Yup.string()
 					.email(f({ id: 'email.error' }))

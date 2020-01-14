@@ -1,0 +1,22 @@
+mutation updateUserWelcome(
+	$id: ID!
+	$password: String
+	$firstname: String
+	$lastname: String
+) {
+	updateUser(
+		input: {
+			id: $id
+			fields: {
+				password: $password
+				firstname: $firstname
+				lastname: $lastname
+			}
+		}
+	) {
+		user {
+			firstname
+			lastname
+		}
+	}
+}

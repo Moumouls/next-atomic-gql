@@ -9,10 +9,12 @@ import { createUploadLink } from 'apollo-upload-client'
 import getConfig from 'next/config'
 import fetch from 'node-fetch'
 import nextCookie from 'next-cookies'
+import cookies from 'js-cookie'
 import { IntlProvider } from 'react-intl'
 import { ThemeProvider, CssBaseline } from '@material-ui/core'
 import intl from '../intl'
 import { theme } from '../theme'
+import { Headset } from '@material-ui/icons'
 
 class MyApp extends App {
 	static async getInitialProps(appContext) {
@@ -42,6 +44,15 @@ class MyApp extends App {
 		const { Component, pageProps, headers, graphQLUrl } = this.props
 		const client = new ApolloClient({
 			cache: new InMemoryCache(),
+			request: (operation) => {
+				operation.setContext({
+					headers: {
+						...headers,
+						'X-Parse-Session-Token':
+							headers.token || cookies.get('token'),
+					},
+				})
+			},
 			link: createUploadLink({
 				uri: graphQLUrl,
 				fetch,

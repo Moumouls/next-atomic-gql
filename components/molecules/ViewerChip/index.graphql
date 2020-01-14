@@ -1,7 +1,0 @@
-fragment ViewerChip on User {
-	firstname
-	lastname
-	picture {
-		url
-	}
-}

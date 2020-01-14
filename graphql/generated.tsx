@@ -1791,14 +1791,24 @@ export type CommonViewerQuery = { __typename?: 'Query' } & {
 		user: { __typename?: 'User' } & Pick<
 			User,
 			'id' | 'email' | 'firstname' | 'lastname'
-		>
+		> & {
+				picture: Maybe<
+					{ __typename?: 'FileInfo' } & Pick<FileInfo, 'url'>
+				>
+			}
 	}
 }
 
-export type ViewerChipFragment = { __typename?: 'User' } & Pick<
-	User,
-	'firstname' | 'lastname'
-> & { picture: Maybe<{ __typename?: 'FileInfo' } & Pick<FileInfo, 'url'>> }
+export type LogOutButtonMutationVariables = {}
+
+export type LogOutButtonMutation = { __typename?: 'Mutation' } & {
+	logOut: Maybe<
+		{ __typename?: 'LogOutPayload' } & Pick<
+			LogOutPayload,
+			'clientMutationId'
+		>
+	>
+}
 
 export type LogInMutationVariables = {
 	email: Scalars['String']
@@ -1843,23 +1853,21 @@ export type SignUpMutation = { __typename?: 'Mutation' } & {
 	>
 }
 
-export type TopBarQueryVariables = {}
-
-export type TopBarQuery = { __typename?: 'Query' } & {
-	viewer: { __typename?: 'Viewer' } & {
-		user: { __typename?: 'User' } & ViewerChipFragment
-	}
+export type UpdateUserWelcomeMutationVariables = {
+	id: Scalars['ID']
+	password?: Maybe<Scalars['String']>
+	firstname?: Maybe<Scalars['String']>
+	lastname?: Maybe<Scalars['String']>
 }
 
-export const ViewerChipFragmentDoc = gql`
-	fragment ViewerChip on User {
-		firstname
-		lastname
-		picture {
-			url
+export type UpdateUserWelcomeMutation = { __typename?: 'Mutation' } & {
+	updateUser: Maybe<
+		{ __typename?: 'UpdateUserPayload' } & {
+			user: { __typename?: 'User' } & Pick<User, 'firstname' | 'lastname'>
 		}
-	}
-`
+	>
+}
+
 export const CommonViewerDocument = gql`
 	query CommonViewer {
 		viewer {
@@ -1868,6 +1876,9 @@ export const CommonViewerDocument = gql`
 				email
 				firstname
 				lastname
+				picture {
+					url
+				}
 			}
 		}
 	}
@@ -1919,6 +1930,55 @@ export type CommonViewerLazyQueryHookResult = ReturnType<
 export type CommonViewerQueryResult = ApolloReactCommon.QueryResult<
 	CommonViewerQuery,
 	CommonViewerQueryVariables
+>
+export const LogOutButtonDocument = gql`
+	mutation logOutButton {
+		logOut(input: { clientMutationId: "logOut" }) {
+			clientMutationId
+		}
+	}
+`
+export type LogOutButtonMutationFn = ApolloReactCommon.MutationFunction<
+	LogOutButtonMutation,
+	LogOutButtonMutationVariables
+>
+
+/**
+ * __useLogOutButtonMutation__
+ *
+ * To run a mutation, you first call `useLogOutButtonMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLogOutButtonMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [logOutButtonMutation, { data, loading, error }] = useLogOutButtonMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useLogOutButtonMutation(
+	baseOptions?: ApolloReactHooks.MutationHookOptions<
+		LogOutButtonMutation,
+		LogOutButtonMutationVariables
+	>,
+) {
+	return ApolloReactHooks.useMutation<
+		LogOutButtonMutation,
+		LogOutButtonMutationVariables
+	>(LogOutButtonDocument, baseOptions)
+}
+export type LogOutButtonMutationHookResult = ReturnType<
+	typeof useLogOutButtonMutation
+>
+export type LogOutButtonMutationResult = ApolloReactCommon.MutationResult<
+	LogOutButtonMutation
+>
+export type LogOutButtonMutationOptions = ApolloReactCommon.BaseMutationOptions<
+	LogOutButtonMutation,
+	LogOutButtonMutationVariables
 >
 export const LogInDocument = gql`
 	mutation logIn($email: String!, $password: String!) {
@@ -2095,57 +2155,73 @@ export type SignUpMutationOptions = ApolloReactCommon.BaseMutationOptions<
 	SignUpMutation,
 	SignUpMutationVariables
 >
-export const TopBarDocument = gql`
-	query TopBar {
-		viewer {
+export const UpdateUserWelcomeDocument = gql`
+	mutation updateUserWelcome(
+		$id: ID!
+		$password: String
+		$firstname: String
+		$lastname: String
+	) {
+		updateUser(
+			input: {
+				id: $id
+				fields: {
+					password: $password
+					firstname: $firstname
+					lastname: $lastname
+				}
+			}
+		) {
 			user {
-				...ViewerChip
+				firstname
+				lastname
 			}
 		}
 	}
-	${ViewerChipFragmentDoc}
 `
+export type UpdateUserWelcomeMutationFn = ApolloReactCommon.MutationFunction<
+	UpdateUserWelcomeMutation,
+	UpdateUserWelcomeMutationVariables
+>
 
 /**
- * __useTopBarQuery__
+ * __useUpdateUserWelcomeMutation__
  *
- * To run a query within a React component, call `useTopBarQuery` and pass it any options that fit your needs.
- * When your component renders, `useTopBarQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
+ * To run a mutation, you first call `useUpdateUserWelcomeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserWelcomeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const { data, loading, error } = useTopBarQuery({
+ * const [updateUserWelcomeMutation, { data, loading, error }] = useUpdateUserWelcomeMutation({
  *   variables: {
+ *      id: // value for 'id'
+ *      password: // value for 'password'
+ *      firstname: // value for 'firstname'
+ *      lastname: // value for 'lastname'
  *   },
  * });
  */
-export function useTopBarQuery(
-	baseOptions?: ApolloReactHooks.QueryHookOptions<
-		TopBarQuery,
-		TopBarQueryVariables
+export function useUpdateUserWelcomeMutation(
+	baseOptions?: ApolloReactHooks.MutationHookOptions<
+		UpdateUserWelcomeMutation,
+		UpdateUserWelcomeMutationVariables
 	>,
 ) {
-	return ApolloReactHooks.useQuery<TopBarQuery, TopBarQueryVariables>(
-		TopBarDocument,
-		baseOptions,
-	)
+	return ApolloReactHooks.useMutation<
+		UpdateUserWelcomeMutation,
+		UpdateUserWelcomeMutationVariables
+	>(UpdateUserWelcomeDocument, baseOptions)
 }
-export function useTopBarLazyQuery(
-	baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-		TopBarQuery,
-		TopBarQueryVariables
-	>,
-) {
-	return ApolloReactHooks.useLazyQuery<TopBarQuery, TopBarQueryVariables>(
-		TopBarDocument,
-		baseOptions,
-	)
-}
-export type TopBarQueryHookResult = ReturnType<typeof useTopBarQuery>
-export type TopBarLazyQueryHookResult = ReturnType<typeof useTopBarLazyQuery>
-export type TopBarQueryResult = ApolloReactCommon.QueryResult<
-	TopBarQuery,
-	TopBarQueryVariables
+export type UpdateUserWelcomeMutationHookResult = ReturnType<
+	typeof useUpdateUserWelcomeMutation
+>
+export type UpdateUserWelcomeMutationResult = ApolloReactCommon.MutationResult<
+	UpdateUserWelcomeMutation
+>
+export type UpdateUserWelcomeMutationOptions = ApolloReactCommon.BaseMutationOptions<
+	UpdateUserWelcomeMutation,
+	UpdateUserWelcomeMutationVariables
 >

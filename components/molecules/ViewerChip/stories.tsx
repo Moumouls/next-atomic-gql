@@ -1,5 +1,9 @@
 import React from 'react'
-import { name, image } from 'faker'
+import {
+	GQLLoadingProvider,
+	GQLProvider,
+	GQLErrorProvider,
+} from '@graphql-mock'
 import { ViewerChip } from './index'
 
 export default {
@@ -7,21 +11,25 @@ export default {
 	title: 'Molecules/ViewerChip',
 }
 
-const data = {
-	Base: {
-		firstname: name.firstName(),
-		picture: {
-			file: {
-				url: image.avatar(),
-			},
-		},
-	},
-	WithoutPicture: {
-		firstname: name.firstName(),
+const customResolvers = {
+	User: () => ({
 		picture: null,
-	},
+	}),
 }
 
-export const Base = () => <ViewerChip data={data.Base} />
-export const Loading = () => <ViewerChip />
-export const WithoutPicture = () => <ViewerChip data={data.WithoutPicture} />
+export const Base = () => <ViewerChip />
+export const Loading = () => (
+	<GQLLoadingProvider>
+		<ViewerChip />
+	</GQLLoadingProvider>
+)
+export const NoViewer = () => (
+	<GQLErrorProvider>
+		<ViewerChip />
+	</GQLErrorProvider>
+)
+export const WithoutPicture = () => (
+	<GQLProvider customResolvers={customResolvers}>
+		<ViewerChip />
+	</GQLProvider>
+)

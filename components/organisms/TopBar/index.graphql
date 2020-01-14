@@ -1,7 +1,0 @@
-query TopBar {
-	viewer {
-		user {
-			...ViewerChip
-		}
-	}
-}

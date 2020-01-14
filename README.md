@@ -7,6 +7,8 @@ Just `yarn`
 ## Storybook
 
 To start the story book you need to launch `yarn storybook`
+A mocked server with graphql playground is available at `http://localhost:1337/playground` or `http://localhost:1338/playground`
+You can find global mocks mocks in `graphql/mock/mocks.ts`
 
 ### Create a Story
 
@@ -34,16 +36,15 @@ export const Base = () => (
 
 ## Fetch GraphQL Schema from remote
 
-To design requests you can start a mocked server with playground: `yarn refresh-schema`
+Fetch the schema of the `Next Atomic Server` from `yarn refresh-schema`
 
 ## Mocked Server
 
-To design requests you can start a mocked server with playground: `yarn mocked-server`
-
+A mocked server with graphql playground is available at `http://localhost:1337/playground` or `http://localhost:1338/playground`
 You can find global mocks mocks in `graphql/mock/mocks.ts`
-
-## Start Next
 
 ### Full app dev
 
-First you need to start the mocked server: `yarn mocked-server` and in another shell window `yarn dev`
+Launch `yarn dev`
+A mocked server with graphql playground is available at `http://localhost:1337/playground` or `http://localhost:1338/playground`
+You can find global mocks mocks in `graphql/mock/mocks.ts`
