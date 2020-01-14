@@ -1797,7 +1797,7 @@ export type CommonViewerQuery = { __typename?: 'Query' } & {
 
 export type ViewerChipFragment = { __typename?: 'User' } & Pick<
 	User,
-	'firstname'
+	'firstname' | 'lastname'
 > & { picture: Maybe<{ __typename?: 'FileInfo' } & Pick<FileInfo, 'url'>> }
 
 export type LogInMutationVariables = {
@@ -1854,6 +1854,7 @@ export type TopBarQuery = { __typename?: 'Query' } & {
 export const ViewerChipFragmentDoc = gql`
 	fragment ViewerChip on User {
 		firstname
+		lastname
 		picture {
 			url
 		}
