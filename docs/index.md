@@ -36,7 +36,7 @@ Next atomic is super easy to install, just fork/clone/dowload this repo and laun
 
 ## Main Strategy
 
-The main goal of **Next Atomic** is to isolate as much as possible each component, and associate a `GrapgQL Fragment` to each component then the N+1 component can use children's `GrapgQL Fragment` inside it's own `index.graphql`. With this strategy you can easly design and create components without carrying about data availability. This is a Data Driven UI.
+The main goal of **Next Atomic** is to isolate as much as possible each component, and associate a `GraphQL Fragment` to each component then the N+1 component can use children's `GraphQL Fragment` inside it's own `index.graphql`. With this strategy you can easly design and create components without carrying about data availability. This is a Data Driven UI.
 
 ## Development Workflow
 
@@ -150,7 +150,7 @@ export const WithoutPicture = () => (
 )
 ```
 
-### With fine grained GrapgQL error/response
+### With fine grained GraphQL error/response
 
 Here a quick example of the personal informations molecule that display a form
 
