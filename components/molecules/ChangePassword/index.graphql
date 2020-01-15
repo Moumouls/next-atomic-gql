@@ -1,0 +1,7 @@
+mutation changePassword($id: ID!, $password: String) {
+	updateUser(input: { id: $id, fields: { password: $password } }) {
+		user {
+			id
+		}
+	}
+}

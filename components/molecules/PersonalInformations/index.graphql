@@ -1,20 +1,16 @@
-mutation updateUserWelcome(
+mutation updateUserPersonalInformations(
 	$id: ID!
-	$password: String
 	$firstname: String
 	$lastname: String
 ) {
 	updateUser(
 		input: {
 			id: $id
-			fields: {
-				password: $password
-				firstname: $firstname
-				lastname: $lastname
-			}
+			fields: { firstname: $firstname, lastname: $lastname }
 		}
 	) {
 		user {
+			id
 			firstname
 			lastname
 		}

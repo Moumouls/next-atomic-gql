@@ -4,7 +4,7 @@ import { useLogOutButtonMutation } from '@graphql'
 import { Button } from '@material-ui/core'
 import { useIntl } from 'react-intl'
 
-export const LogOutButton = () => {
+export const LogOutButton = ({ style }: any) => {
 	const [logOut, { client, data }] = useLogOutButtonMutation()
 	const f = useIntl().formatMessage
 	if (data?.logOut?.clientMutationId) {
@@ -12,7 +12,12 @@ export const LogOutButton = () => {
 		Router.push('/login')
 	}
 	return (
-		<Button variant='contained' color='primary' onClick={() => logOut()}>
+		<Button
+			style={style}
+			variant='contained'
+			color='primary'
+			onClick={() => logOut()}
+		>
 			{f({ id: 'logout' })}
 		</Button>
 	)

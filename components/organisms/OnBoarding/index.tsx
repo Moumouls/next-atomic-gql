@@ -90,7 +90,7 @@ export const OnBoarding = () => {
 						lastname,
 					},
 				})
-				Router.push('/dashboard')
+				Router.push('/welcome')
 			}}
 			validationSchema={Yup.object().shape({
 				firstname: Yup.string().required(f({ id: 'field.required' })),

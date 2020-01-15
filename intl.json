@@ -25,7 +25,13 @@
 		"private.info": "Cette information restera privée",
 		"upload": "Télécharger",
 		"next": "Suivant",
-		"welcome": "Bienvenue {firstname} sur Atomic Next 🚀"
+		"welcome": "Bienvenue {firstname} sur Atomic Next",
+		"personal.informations": "Informations personnelles",
+		"change.password": "Changer le mot de passe",
+		"change": "Changer",
+		"password.changed": "Mot de passe changé",
+		"data.saved": "Donnée sauvegardée",
+		"change.password.info": "Après le changement vous devrez vous reconnecter"
 	},
 	"en": {
 		"show": "Show",
@@ -66,6 +72,12 @@
 		"id.piece": "Identity document",
 		"next": "Next",
 		"id.piece.info": "We need it to validate your account. This information will remain private",
-		"welcome": "Welcome {firstname} on Atomic Next 🚀"
+		"welcome": "Welcome {firstname} on Atomic Next",
+		"personal.informations": "Personal informations",
+		"change.password": "Change password",
+		"change": "Change",
+		"password.changed": "Password changed",
+		"data.saved": "Data saved",
+		"change.password.info": "After the change you will need to reconnect"
 	}
 }

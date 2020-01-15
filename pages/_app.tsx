@@ -14,7 +14,7 @@ import { IntlProvider } from 'react-intl'
 import { ThemeProvider, CssBaseline } from '@material-ui/core'
 import intl from '../intl'
 import { theme } from '../theme'
-import { Headset } from '@material-ui/icons'
+import { SnackbarProvider } from 'notistack'
 
 class MyApp extends App {
 	static async getInitialProps(appContext) {
@@ -26,10 +26,10 @@ class MyApp extends App {
 		const headers = {
 			'X-Parse-Application-Id': getConfig().publicRuntimeConfig.appId,
 		}
-		if (token) headers['X-Parse-Session-Token'] = token
 		return {
 			...appProps,
 			headers,
+			token,
 			graphQLUrl,
 		}
 	}
@@ -41,34 +41,41 @@ class MyApp extends App {
 		}
 	}
 	render() {
-		const { Component, pageProps, headers, graphQLUrl } = this.props
+		const { Component, pageProps, headers, token, graphQLUrl } = this.props
 		const client = new ApolloClient({
 			cache: new InMemoryCache(),
-			request: (operation) => {
-				operation.setContext({
-					headers: {
-						...headers,
-						'X-Parse-Session-Token':
-							headers.token || cookies.get('token'),
-					},
-				})
-			},
 			link: createUploadLink({
 				uri: graphQLUrl,
-				fetch,
-				headers,
+				fetch: (...args) => {
+					try {
+						let t = cookies.get('token')
+						if (t) args[1].headers['X-Parse-Session-Token'] = t
+					} catch (e) {
+						if (token) {
+							args[1].headers['X-Parse-Session-Token'] =
+								headers.token
+						}
+					}
+					args[1].headers = {
+						...args[1].headers,
+						...headers,
+					}
+					return fetch(...args)
+				},
 			}),
 		})
 
 		return (
-			<ApolloProvider client={client}>
-				<IntlProvider locale='fr' messages={intl.fr}>
-					<ThemeProvider theme={theme}>
-						<CssBaseline />
-						<Component {...pageProps} />
-					</ThemeProvider>
-				</IntlProvider>
-			</ApolloProvider>
+			<SnackbarProvider>
+				<ApolloProvider client={client}>
+					<IntlProvider locale='fr' messages={intl.fr}>
+						<ThemeProvider theme={theme}>
+							<CssBaseline />
+							<Component {...pageProps} />
+						</ThemeProvider>
+					</IntlProvider>
+				</ApolloProvider>
+			</SnackbarProvider>
 		)
 	}
 }

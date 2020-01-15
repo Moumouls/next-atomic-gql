@@ -1810,6 +1810,38 @@ export type LogOutButtonMutation = { __typename?: 'Mutation' } & {
 	>
 }
 
+export type ChangePasswordMutationVariables = {
+	id: Scalars['ID']
+	password?: Maybe<Scalars['String']>
+}
+
+export type ChangePasswordMutation = { __typename?: 'Mutation' } & {
+	updateUser: Maybe<
+		{ __typename?: 'UpdateUserPayload' } & {
+			user: { __typename?: 'User' } & Pick<User, 'id'>
+		}
+	>
+}
+
+export type UpdateUserPersonalInformationsMutationVariables = {
+	id: Scalars['ID']
+	firstname?: Maybe<Scalars['String']>
+	lastname?: Maybe<Scalars['String']>
+}
+
+export type UpdateUserPersonalInformationsMutation = {
+	__typename?: 'Mutation'
+} & {
+	updateUser: Maybe<
+		{ __typename?: 'UpdateUserPayload' } & {
+			user: { __typename?: 'User' } & Pick<
+				User,
+				'id' | 'firstname' | 'lastname'
+			>
+		}
+	>
+}
+
 export type LogInMutationVariables = {
 	email: Scalars['String']
 	password: Scalars['String']
@@ -1849,21 +1881,6 @@ export type SignUpMutation = { __typename?: 'Mutation' } & {
 	signUp: Maybe<
 		{ __typename?: 'SignUpPayload' } & {
 			viewer: { __typename?: 'Viewer' } & Pick<Viewer, 'sessionToken'>
-		}
-	>
-}
-
-export type UpdateUserWelcomeMutationVariables = {
-	id: Scalars['ID']
-	password?: Maybe<Scalars['String']>
-	firstname?: Maybe<Scalars['String']>
-	lastname?: Maybe<Scalars['String']>
-}
-
-export type UpdateUserWelcomeMutation = { __typename?: 'Mutation' } & {
-	updateUser: Maybe<
-		{ __typename?: 'UpdateUserPayload' } & {
-			user: { __typename?: 'User' } & Pick<User, 'firstname' | 'lastname'>
 		}
 	>
 }
@@ -1979,6 +1996,124 @@ export type LogOutButtonMutationResult = ApolloReactCommon.MutationResult<
 export type LogOutButtonMutationOptions = ApolloReactCommon.BaseMutationOptions<
 	LogOutButtonMutation,
 	LogOutButtonMutationVariables
+>
+export const ChangePasswordDocument = gql`
+	mutation changePassword($id: ID!, $password: String) {
+		updateUser(input: { id: $id, fields: { password: $password } }) {
+			user {
+				id
+			}
+		}
+	}
+`
+export type ChangePasswordMutationFn = ApolloReactCommon.MutationFunction<
+	ChangePasswordMutation,
+	ChangePasswordMutationVariables
+>
+
+/**
+ * __useChangePasswordMutation__
+ *
+ * To run a mutation, you first call `useChangePasswordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangePasswordMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [changePasswordMutation, { data, loading, error }] = useChangePasswordMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useChangePasswordMutation(
+	baseOptions?: ApolloReactHooks.MutationHookOptions<
+		ChangePasswordMutation,
+		ChangePasswordMutationVariables
+	>,
+) {
+	return ApolloReactHooks.useMutation<
+		ChangePasswordMutation,
+		ChangePasswordMutationVariables
+	>(ChangePasswordDocument, baseOptions)
+}
+export type ChangePasswordMutationHookResult = ReturnType<
+	typeof useChangePasswordMutation
+>
+export type ChangePasswordMutationResult = ApolloReactCommon.MutationResult<
+	ChangePasswordMutation
+>
+export type ChangePasswordMutationOptions = ApolloReactCommon.BaseMutationOptions<
+	ChangePasswordMutation,
+	ChangePasswordMutationVariables
+>
+export const UpdateUserPersonalInformationsDocument = gql`
+	mutation updateUserPersonalInformations(
+		$id: ID!
+		$firstname: String
+		$lastname: String
+	) {
+		updateUser(
+			input: {
+				id: $id
+				fields: { firstname: $firstname, lastname: $lastname }
+			}
+		) {
+			user {
+				id
+				firstname
+				lastname
+			}
+		}
+	}
+`
+export type UpdateUserPersonalInformationsMutationFn = ApolloReactCommon.MutationFunction<
+	UpdateUserPersonalInformationsMutation,
+	UpdateUserPersonalInformationsMutationVariables
+>
+
+/**
+ * __useUpdateUserPersonalInformationsMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserPersonalInformationsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserPersonalInformationsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserPersonalInformationsMutation, { data, loading, error }] = useUpdateUserPersonalInformationsMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      firstname: // value for 'firstname'
+ *      lastname: // value for 'lastname'
+ *   },
+ * });
+ */
+export function useUpdateUserPersonalInformationsMutation(
+	baseOptions?: ApolloReactHooks.MutationHookOptions<
+		UpdateUserPersonalInformationsMutation,
+		UpdateUserPersonalInformationsMutationVariables
+	>,
+) {
+	return ApolloReactHooks.useMutation<
+		UpdateUserPersonalInformationsMutation,
+		UpdateUserPersonalInformationsMutationVariables
+	>(UpdateUserPersonalInformationsDocument, baseOptions)
+}
+export type UpdateUserPersonalInformationsMutationHookResult = ReturnType<
+	typeof useUpdateUserPersonalInformationsMutation
+>
+export type UpdateUserPersonalInformationsMutationResult = ApolloReactCommon.MutationResult<
+	UpdateUserPersonalInformationsMutation
+>
+export type UpdateUserPersonalInformationsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+	UpdateUserPersonalInformationsMutation,
+	UpdateUserPersonalInformationsMutationVariables
 >
 export const LogInDocument = gql`
 	mutation logIn($email: String!, $password: String!) {
@@ -2154,74 +2289,4 @@ export type SignUpMutationResult = ApolloReactCommon.MutationResult<
 export type SignUpMutationOptions = ApolloReactCommon.BaseMutationOptions<
 	SignUpMutation,
 	SignUpMutationVariables
->
-export const UpdateUserWelcomeDocument = gql`
-	mutation updateUserWelcome(
-		$id: ID!
-		$password: String
-		$firstname: String
-		$lastname: String
-	) {
-		updateUser(
-			input: {
-				id: $id
-				fields: {
-					password: $password
-					firstname: $firstname
-					lastname: $lastname
-				}
-			}
-		) {
-			user {
-				firstname
-				lastname
-			}
-		}
-	}
-`
-export type UpdateUserWelcomeMutationFn = ApolloReactCommon.MutationFunction<
-	UpdateUserWelcomeMutation,
-	UpdateUserWelcomeMutationVariables
->
-
-/**
- * __useUpdateUserWelcomeMutation__
- *
- * To run a mutation, you first call `useUpdateUserWelcomeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateUserWelcomeMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateUserWelcomeMutation, { data, loading, error }] = useUpdateUserWelcomeMutation({
- *   variables: {
- *      id: // value for 'id'
- *      password: // value for 'password'
- *      firstname: // value for 'firstname'
- *      lastname: // value for 'lastname'
- *   },
- * });
- */
-export function useUpdateUserWelcomeMutation(
-	baseOptions?: ApolloReactHooks.MutationHookOptions<
-		UpdateUserWelcomeMutation,
-		UpdateUserWelcomeMutationVariables
-	>,
-) {
-	return ApolloReactHooks.useMutation<
-		UpdateUserWelcomeMutation,
-		UpdateUserWelcomeMutationVariables
-	>(UpdateUserWelcomeDocument, baseOptions)
-}
-export type UpdateUserWelcomeMutationHookResult = ReturnType<
-	typeof useUpdateUserWelcomeMutation
->
-export type UpdateUserWelcomeMutationResult = ApolloReactCommon.MutationResult<
-	UpdateUserWelcomeMutation
->
-export type UpdateUserWelcomeMutationOptions = ApolloReactCommon.BaseMutationOptions<
-	UpdateUserWelcomeMutation,
-	UpdateUserWelcomeMutationVariables
 >
