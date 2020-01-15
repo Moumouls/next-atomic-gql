@@ -26,7 +26,7 @@ Here some features:
 -   Material UI implemented
 -   SSR supported
 -   Snackbar Provider
--   GraphQL Server Ready based on Parse Server: [https://github.com/Moumouls/next*atomic*gql\*server](https://github.com/Moumouls/next*atomic*gql*server)
+-   GraphQL Server Ready based on Parse Server: [https://github.com/Moumouls/next-atomic-gql-server](https://github.com/Moumouls/next-atomic-gql-server)
 
 ## Install
 
@@ -45,7 +45,7 @@ To take full advantage of **Next Atomic** i recommend to use the following devel
 -   Define a page to develop
 -   Launch storybook: `yarn storybook`
 -   Go to the mocked server `http://localhost:1337` or `http://localhost:1338` to check in the playground if data needed for your page exists
--   If some data is not defined in the API check/update your GraphQL Backend/Next Atomic Server and then use/adapt `yarn refresh*schema` to update your local GraphQL API Contract (`./graphql/cloud*schema.graphql`)
+-   If some data is not defined in the API check/update your GraphQL Backend/Next Atomic Server and then use/adapt `yarn refresh-schema` to update your local GraphQL API Contract (`./graphql/cloud-schema.graphql`)
 -   Create Atoms:
     -   index.tsx
     -   stories.tsx
@@ -74,11 +74,11 @@ You can find global mocks mocks in `graphql/mock/mocks.ts`
 ## Next development (to test app, fix last bugs)
 
 Start the next dev app with `yarn dev`, the next app will try to connect to the GraphQL server at `http://localhost:1337/playground`. A mocked server with graphql playground is available at `http://localhost:1337/playground` or `http://localhost:1338/playground`
-You can test your app with a true GraphQL Server by starting the **Next Atomic GraphQL Server**: [https://github.com/Moumouls/next*atomic*gql\*server](https://github.com/Moumouls/next*atomic*gql*server)
+You can test your app with a true GraphQL Server by starting the **Next Atomic GraphQL Server**: [https://github.com/Moumouls/next-atomic-gql-server](https://github.com/Moumouls/next-atomic-gql-server)
 
 ## Fetch GraphQL Schema from remote
 
-Fetch the schema of the `Next Atomic Server` or other GraphQL Server from `yarn refresh*schema`
+Fetch the schema of the `Next Atomic Server` or other GraphQL Server from `yarn refresh-schema`
 
 ## Stories
 
@@ -110,7 +110,7 @@ import {
 	GQLLoadingProvider,
 	GQLProvider,
 	GQLErrorProvider,
-} from '@graphql*mock'
+} from '@graphql-mock'
 import { ViewerChip } from './index'
 
 export default {
@@ -157,7 +157,7 @@ Here a quick example of the personal informations molecule that display a form
 ```ts
 // stories.tsx
 import React from 'react'
-import { GQLProvider } from '@graphql*mock'
+import { GQLProvider } from '@graphql-mock'
 import { PersonalInformations } from './index'
 
 export default {
@@ -168,7 +168,7 @@ export default {
 const customResolvers = {
 	Mutation: () => ({
 		updateUser: () => {
-			// eslint*disable*next*line
+			// eslint-disable-next-line
 			throw 'error'
 		},
 	}),
