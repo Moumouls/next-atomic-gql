@@ -95,6 +95,12 @@ export const OnBoarding = () => {
 							onChange={form.handleChange}
 							value={form.values.lastname}
 							label={f({ id: 'lastname' })}
+							onKeyPress={(ev) => {
+								if (ev.key === 'Enter') {
+									form.handleSubmit()
+									ev.preventDefault()
+								}
+							}}
 							variant='filled'
 							fullWidth
 						/>

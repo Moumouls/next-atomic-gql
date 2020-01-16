@@ -29,7 +29,6 @@ export const ChangePassword = () => {
 					enqueueSnackbar(f({ id: 'password.changed' }), {
 						variant: 'success',
 					})
-					form.resetForm()
 					client.resetStore()
 					Router.push('/login')
 				} catch (e) {
