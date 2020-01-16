@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import {
 	Card,
 	CardContent,
@@ -11,7 +11,8 @@ import {
 } from '@material-ui/core'
 import { VpnKey, Email } from '@material-ui/icons'
 import { useIntl } from 'react-intl'
-import { Formik } from 'formik'
+import { useFormik } from 'formik'
+import { useSnackbar } from 'notistack'
 import * as Yup from 'yup'
 import Router from 'next/router'
 import { useLogInMutation } from '@graphql'
@@ -19,120 +20,43 @@ import cookies from 'js-cookie'
 
 export const Login = () => {
 	const { formatMessage: f } = useIntl()
-	const [login, { loading, error, data }] = useLogInMutation()
-
+	const [login, { loading, data }] = useLogInMutation()
+	const { enqueueSnackbar } = useSnackbar()
+	const form = useFormik({
+		initialValues: {
+			email: '',
+			password: '',
+		},
+		onSubmit: async ({ email, password }) => {
+			cookies.remove('token')
+			try {
+				await login({ variables: { email, password } })
+			} catch (e) {
+				enqueueSnackbar(f({ id: 'default.error' }), {
+					variant: 'error',
+				})
+			}
+		},
+		validationSchema: Yup.object().shape({
+			email: Yup.string()
+				.email(f({ id: 'email.error' }))
+				.required(f({ id: 'field.required' })),
+			password: Yup.string()
+				.required(f({ id: 'field.required' }))
+				.min(
+					8,
+					f({
+						id: 'password.min.char',
+					}),
+				),
+		}),
+	})
 	if (data && data.logIn && data.logIn.viewer.sessionToken) {
 		cookies.set('token', data.logIn.viewer.sessionToken, {
 			expires: 7,
 		})
 		Router.push('/welcome')
 	}
-
-	const formFields = ({
-		handleChange,
-		values,
-		errors,
-		handleSubmit,
-	}: any) => (
-		<Fragment>
-			<Grid item xs={10}>
-				<TextField
-					InputProps={{
-						startAdornment: (
-							<InputAdornment position='start'>
-								<Email />
-							</InputAdornment>
-						),
-					}}
-					required
-					type='email'
-					name='email'
-					helperText={errors.email}
-					error={!!errors.email}
-					label={f({ id: 'email' })}
-					variant='filled'
-					onChange={handleChange}
-					value={values.email}
-					fullWidth
-				/>
-			</Grid>
-			<Grid item xs={10}>
-				<TextField
-					InputProps={{
-						startAdornment: (
-							<InputAdornment position='start'>
-								<VpnKey />
-							</InputAdornment>
-						),
-					}}
-					required
-					type='password'
-					name='password'
-					helperText={errors.password}
-					error={!!errors.password}
-					label={f({ id: 'password' })}
-					variant='filled'
-					onChange={handleChange}
-					onKeyPress={(ev) => {
-						if (ev.key === 'Enter') {
-							handleSubmit()
-							ev.preventDefault()
-						}
-					}}
-					value={values.password}
-					fullWidth
-				/>
-			</Grid>
-			<Grid item xs={7}>
-				{!loading && (
-					<Button
-						variant='contained'
-						color='primary'
-						fullWidth
-						onClick={handleSubmit}
-					>
-						{f({ id: 'enter' })}
-					</Button>
-				)}
-				{loading && (
-					<CircularProgress
-						style={{
-							display: 'block',
-							margin: '0 auto',
-						}}
-					/>
-				)}
-			</Grid>
-		</Fragment>
-	)
-
-	const form = (
-		<Formik
-			initialValues={{
-				email: '',
-				password: '',
-			}}
-			onSubmit={({ email, password }) => {
-				cookies.remove('token')
-				login({ variables: { email, password } })
-			}}
-			validationSchema={Yup.object().shape({
-				email: Yup.string()
-					.email(f({ id: 'email.error' }))
-					.required(f({ id: 'field.required' })),
-				password: Yup.string()
-					.required(f({ id: 'field.required' }))
-					.min(
-						8,
-						f({
-							id: 'password.min.char',
-						}),
-					),
-			})}
-		>
-			{formFields}
-		</Formik>
-	)
 	return (
 		<Card>
 			<CardContent>
@@ -144,14 +68,74 @@ export const Login = () => {
 						</Typography>
 					</Grid>
 					<Grid item xs={12} />
-					{form}
-					{error && (
-						<Grid item xs={7}>
-							<Typography color='error' align='center'>
-								{f({ id: 'login.fail' })}
-							</Typography>
-						</Grid>
-					)}
+					<Grid item xs={10}>
+						<TextField
+							InputProps={{
+								startAdornment: (
+									<InputAdornment position='start'>
+										<Email />
+									</InputAdornment>
+								),
+							}}
+							required
+							type='email'
+							name='email'
+							helperText={form.errors.email}
+							error={!!form.errors.email}
+							label={f({ id: 'email' })}
+							variant='filled'
+							onChange={form.handleChange}
+							value={form.values.email}
+							fullWidth
+						/>
+					</Grid>
+					<Grid item xs={10}>
+						<TextField
+							InputProps={{
+								startAdornment: (
+									<InputAdornment position='start'>
+										<VpnKey />
+									</InputAdornment>
+								),
+							}}
+							required
+							type='password'
+							name='password'
+							helperText={form.errors.password}
+							error={!!form.errors.password}
+							label={f({ id: 'password' })}
+							variant='filled'
+							onChange={form.handleChange}
+							onKeyPress={(ev) => {
+								if (ev.key === 'Enter') {
+									form.handleSubmit()
+									ev.preventDefault()
+								}
+							}}
+							value={form.values.password}
+							fullWidth
+						/>
+					</Grid>
+					<Grid item xs={7}>
+						{!loading && (
+							<Button
+								variant='contained'
+								color='primary'
+								fullWidth
+								onClick={() => form.handleSubmit()}
+							>
+								{f({ id: 'enter' })}
+							</Button>
+						)}
+						{loading && (
+							<CircularProgress
+								style={{
+									display: 'block',
+									margin: '0 auto',
+								}}
+							/>
+						)}
+					</Grid>
 				</Grid>
 			</CardContent>
 		</Card>

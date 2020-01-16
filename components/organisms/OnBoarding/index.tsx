@@ -1,5 +1,5 @@
 import React from 'react'
-import { Formik } from 'formik'
+import { useFormik } from 'formik'
 import Router from 'next/router'
 import * as Yup from 'yup'
 import { useIntl } from 'react-intl'
@@ -11,78 +11,32 @@ import {
 	Button,
 	Fade,
 } from '@material-ui/core'
+import { useSnackbar } from 'notistack'
 import { useUpdateUserOnBoardingMutation, useCommonViewerQuery } from '@graphql'
 import { theme } from '../../../theme'
 
 export const OnBoarding = () => {
 	const { formatMessage: f } = useIntl()
 	const { data } = useCommonViewerQuery()
-	const [mutate, { error, loading }] = useUpdateUserOnBoardingMutation()
-	if (!data) return null
-	const formFields = ({
-		handleChange,
-		values,
-		errors,
-		handleSubmit,
-	}: any) => (
-		<Grid container spacing={2}>
-			<Grid item xs={12} sm={6}>
-				<TextField
-					required
-					helperText={errors.firstname || f({ id: 'public.info' })}
-					error={!!errors.firstname}
-					name='firstname'
-					type='text'
-					onChange={handleChange}
-					value={values.firstname}
-					label={f({ id: 'firstname' })}
-					variant='filled'
-					fullWidth
-				/>
-			</Grid>
-			<Grid item xs={12} sm={6}>
-				<TextField
-					required
-					helperText={errors.lastname || f({ id: 'public.info' })}
-					error={!!errors.lastname}
-					name='lastname'
-					type='text'
-					onChange={handleChange}
-					value={values.lastname}
-					label={f({ id: 'lastname' })}
-					variant='filled'
-					fullWidth
-				/>
-			</Grid>
-			<Grid item xs={12}>
-				{!loading && (
-					<Button
-						variant='contained'
-						color='secondary'
-						style={{ display: 'block', margin: '0 auto' }}
-						onClick={handleSubmit}
-					>
-						{f({ id: 'next' })}
-					</Button>
-				)}
-				{loading && (
-					<CircularProgress
-						style={{
-							display: 'block',
-							margin: '0 auto',
-						}}
-					/>
-				)}
-			</Grid>
-		</Grid>
-	)
-	const form = (
-		<Formik
-			initialValues={{
-				firstname: '',
-				lastname: '',
-			}}
-			onSubmit={async ({ firstname, lastname }) => {
+	const { enqueueSnackbar } = useSnackbar()
+	const [mutate, { loading }] = useUpdateUserOnBoardingMutation()
+	const form = useFormik({
+		initialValues: {
+			firstname: '',
+			lastname: '',
+		},
+		validationSchema: Yup.object().shape({
+			firstname: Yup.string().required(f({ id: 'field.required' })),
+			lastname: Yup.string().required(f({ id: 'field.required' })),
+		}),
+		onSubmit: async ({ firstname, lastname }) => {
+			if (!data?.viewer.user.id) {
+				enqueueSnackbar(f({ id: 'default.error' }), {
+					variant: 'error',
+				})
+				return
+			}
+			try {
 				await mutate({
 					variables: {
 						userId: data.viewer.user.id,
@@ -91,15 +45,14 @@ export const OnBoarding = () => {
 					},
 				})
 				Router.push('/welcome')
-			}}
-			validationSchema={Yup.object().shape({
-				firstname: Yup.string().required(f({ id: 'field.required' })),
-				lastname: Yup.string().required(f({ id: 'field.required' })),
-			})}
-		>
-			{formFields}
-		</Formik>
-	)
+			} catch (e) {
+				enqueueSnackbar(f({ id: 'default.error' }), {
+					variant: 'error',
+				})
+			}
+		},
+	})
+	if (!data) return null
 
 	return (
 		<Fade in>
@@ -112,12 +65,61 @@ export const OnBoarding = () => {
 				>
 					{f({ id: 'onboarding' })}
 				</Typography>
-				{form}
-				{error && (
-					<Typography color='error' align='center'>
-						{f({ id: 'default.error' })}
-					</Typography>
-				)}
+				<Grid container spacing={2}>
+					<Grid item xs={12} sm={6}>
+						<TextField
+							required
+							helperText={
+								form.errors.firstname ||
+								f({ id: 'public.info' })
+							}
+							error={!!form.errors.firstname}
+							name='firstname'
+							type='text'
+							onChange={form.handleChange}
+							value={form.values.firstname}
+							label={f({ id: 'firstname' })}
+							variant='filled'
+							fullWidth
+						/>
+					</Grid>
+					<Grid item xs={12} sm={6}>
+						<TextField
+							required
+							helperText={
+								form.errors.lastname || f({ id: 'public.info' })
+							}
+							error={!!form.errors.lastname}
+							name='lastname'
+							type='text'
+							onChange={form.handleChange}
+							value={form.values.lastname}
+							label={f({ id: 'lastname' })}
+							variant='filled'
+							fullWidth
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						{!loading && (
+							<Button
+								variant='contained'
+								color='secondary'
+								style={{ display: 'block', margin: '0 auto' }}
+								onClick={() => form.handleSubmit()}
+							>
+								{f({ id: 'next' })}
+							</Button>
+						)}
+						{loading && (
+							<CircularProgress
+								style={{
+									display: 'block',
+									margin: '0 auto',
+								}}
+							/>
+						)}
+					</Grid>
+				</Grid>
 			</div>
 		</Fade>
 	)
