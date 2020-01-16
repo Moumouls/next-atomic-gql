@@ -14,8 +14,12 @@ export const MainQueryProvider = ({ refetch, children }) => (
 
 // eslint-disable-next-line
 export const SnackbarProvider = ({ children }) => (
-	<OriginalSnackbarProvider>{children}</OriginalSnackbarProvider>
+	<OriginalSnackbarProvider preventDuplicate>
+		{children}
+	</OriginalSnackbarProvider>
 )
 export const snackbarDecorator = (storyFn) => (
-	<OriginalSnackbarProvider>{storyFn()}</OriginalSnackbarProvider>
+	<OriginalSnackbarProvider preventDuplicate>
+		{storyFn()}
+	</OriginalSnackbarProvider>
 )

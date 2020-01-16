@@ -66,7 +66,7 @@ class MyApp extends App {
 		})
 
 		return (
-			<SnackbarProvider>
+			<SnackbarProvider preventDuplicate>
 				<ApolloProvider client={client}>
 					<IntlProvider locale='fr' messages={intl.fr}>
 						<ThemeProvider theme={theme}>
