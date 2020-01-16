@@ -1,5 +1,7 @@
 # Next Atomic
 
+![image](https://i.ibb.co/3WDtbKF/Capture-d-e-cran-2020-01-16-a-11-56-58.png)
+
 ## Introduction
 
 **Next Atomic** is a high end app starter kit to quickly create powerful apps based on GraphQL and React
@@ -210,3 +212,5 @@ Will generate a `useViewerQuery` typed GraphQL apollo hook and a `ViewerFragment
 ```tsx
 import { useViewerQuery } from '@graphql'
 ```
+
+![image](https://i.ibb.co/TmKR2BQ/Capture-d-e-cran-2020-01-16-a-12-03-38.png)
