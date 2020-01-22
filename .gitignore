@@ -23,6 +23,7 @@
 npm-debug.log*
 build
 **/.DS_Store
-complib/node_modules
 yarn-error.log
 graphql/generated.tsx
+graphql/cloud-schema.ts
+graphql/local-schema.ts
