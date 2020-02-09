@@ -1,6 +1,6 @@
 import React from 'react'
-import { SignUpLogin } from '../components/templates/SignUpLogin'
+import { SignUpOrLogin } from '../components/templates/SignUpOrLogin'
 
-const Home = () => <SignUpLogin />
+const Home = () => <SignUpOrLogin />
 
 export default Home

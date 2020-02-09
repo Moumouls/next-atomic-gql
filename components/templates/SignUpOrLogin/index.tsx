@@ -4,7 +4,7 @@ import { Login } from '../../organisms/Login'
 import { SignUp } from '../../organisms/SignUp'
 import { TopBar } from '../../organisms/TopBar'
 
-export const SignUpLogin = () => (
+export const SignUpOrLogin = () => (
 	<Fragment>
 		<TopBar />
 		<Grid

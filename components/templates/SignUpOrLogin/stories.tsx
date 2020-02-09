@@ -1,22 +1,22 @@
 import React from 'react'
 import { GQLErrorProvider, GQLLoadingProvider } from '@graphql-mock'
-import { SignUpLogin } from './index'
+import { SignUpOrLogin } from './index'
 
 export default {
-	component: SignUpLogin,
-	title: 'Templates/SignUpLogin',
+	component: SignUpOrLogin,
+	title: 'Templates/SignUpOrLogin',
 }
 
-export const Base = () => <SignUpLogin />
+export const Base = () => <SignUpOrLogin />
 
 export const Loading = () => (
 	<GQLLoadingProvider>
-		<SignUpLogin />
+		<SignUpOrLogin />
 	</GQLLoadingProvider>
 )
 
 export const NoViewer = () => (
 	<GQLErrorProvider>
-		<SignUpLogin />
+		<SignUpOrLogin />
 	</GQLErrorProvider>
 )
