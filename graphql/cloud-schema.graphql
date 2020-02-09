@@ -403,7 +403,7 @@ input CreateUserFieldsInput {
 	"""
 	This is the object picture.
 	"""
-	picture: File
+	picture: FileInput
 }
 
 input CreateUserInput {
@@ -573,6 +573,18 @@ type FileInfo {
 	This is the url in which the file can be downloaded.
 	"""
 	url: String!
+}
+
+input FileInput {
+	"""
+	A File Scalar can be an url or a FileInfo object.
+	"""
+	file: File
+
+	"""
+	Use this field if you want to create a new file.
+	"""
+	upload: Upload
 }
 
 """
@@ -874,6 +886,20 @@ type LogInPayload {
 	clientMutationId: String
 }
 
+input LogInWithInput {
+	authData: Object!
+	fields: UserLoginWithInput
+	clientMutationId: String
+}
+
+type LogInWithPayload {
+	"""
+	This is the new user that was created, signed up and returned as a viewer.
+	"""
+	viewer: Viewer!
+	clientMutationId: String
+}
+
 input LogOutInput {
 	clientMutationId: String
 }
@@ -929,6 +955,13 @@ type Mutation {
 	The signUp mutation can be used to create and sign up a new user.
 	"""
 	signUp(input: SignUpInput!): SignUpPayload
+
+	"""
+	The logInWith mutation can be used to signup, login user with 3rd party
+	authentication system. This mutation create a user if the authData do not
+	correspond to an existing one.
+	"""
+	logInWith(input: LogInWithInput!): LogInWithPayload
 
 	"""
 	The logIn mutation can be used to log in an existing user.
@@ -2102,7 +2135,7 @@ type SendVerificationEmailPayload {
 }
 
 input SignUpInput {
-	userFields: CreateUserFieldsInput
+	fields: CreateUserFieldsInput
 	clientMutationId: String
 }
 
@@ -2334,7 +2367,7 @@ input UpdateUserFieldsInput {
 	"""
 	This is the object picture.
 	"""
-	picture: File
+	picture: FileInput
 }
 
 input UpdateUserInput {
@@ -2497,6 +2530,35 @@ type UserEdge {
 	A cursor for use in pagination
 	"""
 	cursor: String!
+}
+
+input UserLoginWithInput {
+	ACL: ACLInput
+
+	"""
+	This is the object email.
+	"""
+	email: String
+
+	"""
+	This is the object emailVerified.
+	"""
+	emailVerified: Boolean
+
+	"""
+	This is the object firstname.
+	"""
+	firstname: String
+
+	"""
+	This is the object lastname.
+	"""
+	lastname: String
+
+	"""
+	This is the object picture.
+	"""
+	picture: FileInput
 }
 
 """

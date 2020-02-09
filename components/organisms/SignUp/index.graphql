@@ -1,7 +1,7 @@
 mutation signUp($email: String!, $password: String!) {
 	signUp(
 		input: {
-			userFields: { username: $email, email: $email, password: $password }
+			fields: { username: $email, email: $email, password: $password }
 		}
 	) {
 		viewer {

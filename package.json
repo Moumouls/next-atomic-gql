@@ -6,6 +6,7 @@
 		"dev": "concurrently -r \"next dev\" \"nodemon\"",
 		"build": "next build",
 		"start": "next start",
+		"generate:ci": "node scripts/fixSchema.js && graphql-codegen",
 		"generate": "node scripts/fixSchema.js && graphql-codegen --watch",
 		"storybook": "concurrently -r \"MOCKED_SERVER_PORT=1338 nodemon\" \"start-storybook -s ./public -p 6006\" \"yarn generate\"",
 		"lint": "tsc --noEmit && prettier --write \"{components,pages}/**\" && eslint \"{components,pages}/**\"",
