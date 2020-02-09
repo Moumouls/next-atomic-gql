@@ -1,6 +1,6 @@
 import React from 'react'
-import { SignUpLogin } from '../components/templates/SignUpLogin'
+import { SignUpOrLogin } from '../components/templates/SignUpOrLogin'
 
-const Login = () => <SignUpLogin />
+const Login = () => <SignUpOrLogin />
 
 export default Login
