@@ -1,6 +1,16 @@
 # Next Atomic
 
 ![image](https://i.ibb.co/3WDtbKF/Capture-d-e-cran-2020-01-16-a-11-56-58.png)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Moumouls_next-atomic-gql&metric=alert_status)](https://sonarcloud.io/dashboard?id=Moumouls_next-atomic-gql)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Moumouls_next-atomic-gql&metric=bugs)](https://sonarcloud.io/dashboard?id=Moumouls_next-atomic-gql)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Moumouls_next-atomic-gql&metric=code_smells)](https://sonarcloud.io/dashboard?id=Moumouls_next-atomic-gql)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=Moumouls_next-atomic-gql&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=Moumouls_next-atomic-gql)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Moumouls_next-atomic-gql&metric=ncloc)](https://sonarcloud.io/dashboard?id=Moumouls_next-atomic-gql)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Moumouls_next-atomic-gql&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=Moumouls_next-atomic-gql)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Moumouls_next-atomic-gql&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=Moumouls_next-atomic-gql)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Moumouls_next-atomic-gql&metric=security_rating)](https://sonarcloud.io/dashboard?id=Moumouls_next-atomic-gql)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Moumouls_next-atomic-gql&metric=sqale_index)](https://sonarcloud.io/dashboard?id=Moumouls_next-atomic-gql)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Moumouls_next-atomic-gql&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=Moumouls_next-atomic-gql)
 
 ## Introduction
 
