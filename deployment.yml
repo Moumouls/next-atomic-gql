@@ -1,0 +1,62 @@
+kind: Service
+apiVersion: v1
+metadata:
+    name: next-atomic-front
+    namespace: ${CICD_GIT_BRANCH}
+spec:
+    selector:
+        app: next-atomic-front
+    type: ClusterIP
+    ports:
+        - protocol: TCP
+          port: 80
+          targetPort: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: next-atomic-front
+    namespace: ${CICD_GIT_BRANCH}
+    labels:
+        app: next-atomic-front
+spec:
+    replicas: 2
+    selector:
+        matchLabels:
+            app: next-atomic-front
+    template:
+        metadata:
+            annotations:
+                commit-ref: ${CICD_GIT_BRANCH}:${CICD_GIT_COMMIT}
+                pipeline-ref: ${CICD_EXECUTION_ID}
+            labels:
+                app: next-atomic-front
+        spec:
+            #affinity:
+            #    podAntiAffinity:
+            #        requiredDuringSchedulingIgnoredDuringExecution:
+            #            - labelSelector:
+            #                  matchExpressions:
+            #                      - key: app
+            #                        operator: In
+            #                        values:
+            #                            - next-atomic-front
+            #              topologyKey: kubernetes.io/hostname
+            imagePullSecrets:
+                - name: dockerhub
+            containers:
+                - name: next-atomic-front
+                  # You need to modify this line here and into .rancher-pipeline.yml
+                  image: index.docker.io/aDockerUser/aDockerRepo:next-atomic-front-${CICD_GIT_COMMIT}
+                  #resources:
+                  #    requests:
+                  #        memory: '200Mi'
+                  #        cpu: '100m'
+                  env:
+                      - name: APP_ID
+                        value: next-atomic
+                      - name: GRAPHQL_URL
+                        valueFrom:
+                            secretKeyRef:
+                                name: next-atomic-back
+                                key: public-graphql-url
