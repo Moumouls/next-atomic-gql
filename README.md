@@ -1,6 +1,9 @@
 # Next Atomic
 
 ![image](https://i.ibb.co/3WDtbKF/Capture-d-e-cran-2020-01-16-a-11-56-58.png)
+
+### Quality
+
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Moumouls_next-atomic-gql&metric=alert_status)](https://sonarcloud.io/dashboard?id=Moumouls_next-atomic-gql)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Moumouls_next-atomic-gql&metric=bugs)](https://sonarcloud.io/dashboard?id=Moumouls_next-atomic-gql)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Moumouls_next-atomic-gql&metric=code_smells)](https://sonarcloud.io/dashboard?id=Moumouls_next-atomic-gql)
