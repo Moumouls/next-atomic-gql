@@ -27,3 +27,4 @@ yarn-error.log
 graphql/generated.tsx
 graphql/cloud-schema.ts
 graphql/local-schema.ts
+.scannerwork

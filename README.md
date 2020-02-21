@@ -42,6 +42,9 @@ Here some features:
 -   SSR supported
 -   Snackbar Provider
 -   GraphQL Server Ready based on Parse Server: [https://github.com/Moumouls/next-atomic-gql-server](https://github.com/Moumouls/next-atomic-gql-server)
+-   SonarQube Local Integration to ensure code quality/security
+-   Kubernetes example deployment.yml file
+-   Rancher CI pipeline example file
 
 ## Install
 
@@ -227,3 +230,12 @@ import { useViewerQuery } from '@graphql'
 ```
 
 ![image](https://i.ibb.co/TmKR2BQ/Capture-d-e-cran-2020-01-16-a-12-03-38.png)
+
+## Code Quality/Security: Local SonarQube
+
+You need to have Docker installed on your system, then you can run `yarn sonarqube` (need to be launched once for your entire system/projects).
+To run a scan `yarn scan` results are available at [http://localhost:9000](http://localhost:9000)
+
+## Kubernetes/Rancher
+
+You can find some example files (that you need to modify) of `deployment.yml` and a `.rancher-pipeline.yml`.

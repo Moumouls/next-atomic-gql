@@ -1,0 +1,27 @@
+stages:
+    - name: Build
+      steps:
+          - publishImageConfig:
+                dockerfilePath: ./Dockerfile
+                buildContext: .
+                # You need to modify this line here and into deployment.yml
+                tag: aDockerUser/aDockerRepo:next-atomic-front-${CICD_GIT_COMMIT}
+                pushRemote: true
+                registry: index.docker.io
+      when:
+          branch:
+              include:
+                  - master
+                  - release
+          event:
+              include:
+                  - push
+    - name: Deploy
+      steps:
+          - applyYamlConfig:
+                path: ./deployment.yml
+branch:
+    include:
+        - master
+        - release
+notification: {}
