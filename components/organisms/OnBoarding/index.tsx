@@ -15,7 +15,7 @@ import { useSnackbar } from 'notistack'
 import { useUpdateUserOnBoardingMutation, useCommonViewerQuery } from '@graphql'
 import { theme } from '../../../theme'
 
-export const OnBoarding = () => {
+const useController = () => {
 	const { formatMessage: f } = useIntl()
 	const { data } = useCommonViewerQuery()
 	const { enqueueSnackbar } = useSnackbar()
@@ -52,9 +52,11 @@ export const OnBoarding = () => {
 			}
 		},
 	})
-	if (!data) return null
+	return { form, f, data, loading }
+}
 
-	return (
+const view = ({ form, data, f, loading }: ReturnType<typeof useController>) =>
+	data ? (
 		<Fade in>
 			<div>
 				<Typography
@@ -128,5 +130,6 @@ export const OnBoarding = () => {
 				</Grid>
 			</div>
 		</Fade>
-	)
-}
+	) : null
+
+export const OnBoarding = () => view(useController())
