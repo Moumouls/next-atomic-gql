@@ -7,7 +7,7 @@ import { useFormik } from 'formik'
 import { useSnackbar } from 'notistack'
 import * as Yup from 'yup'
 
-export const ChangePassword = () => {
+const useController = () => {
 	const { loading, data, client } = useCommonViewerQuery()
 	const f = useIntl().formatMessage
 	const [changePassword] = useChangePasswordMutation()
@@ -51,12 +51,11 @@ export const ChangePassword = () => {
 			),
 		}),
 	})
+	return { form, f, loading, data }
+}
 
-	if (loading) {
-		return null
-	}
-
-	return (
+const view = ({ form, f, loading, data }: ReturnType<typeof useController>) =>
+	!loading && data?.viewer.user.id ? (
 		<Fade in>
 			<Fragment>
 				<Typography variant='h5' color='textSecondary' gutterBottom>
@@ -112,5 +111,6 @@ export const ChangePassword = () => {
 				</Grid>
 			</Fragment>
 		</Fade>
-	)
-}
+	) : null
+
+export const ChangePassword = () => view(useController())

@@ -6,9 +6,40 @@ import { useCommonViewerQuery } from '@graphql'
 import cookies from 'js-cookie'
 import { useIntl } from 'react-intl'
 
-export const ViewerChip = () => {
+const useController = () => {
 	const { loading, data } = useCommonViewerQuery()
 	const f = useIntl().formatMessage
+	const redirect = () => {
+		Router.push('/login')
+	}
+	if (!data?.viewer) {
+		cookies.remove('token')
+	}
+	let firstname = data?.viewer.user.firstname
+	if (firstname) {
+		firstname =
+			firstname.substring(0, 15) === firstname
+				? firstname
+				: `${firstname.substring(0, 12)}...`
+	}
+	return {
+		f,
+		redirect,
+		firstname,
+		picture: data?.viewer.user.picture,
+		loading,
+		data,
+	}
+}
+
+const view = ({
+	f,
+	redirect,
+	firstname,
+	picture,
+	loading,
+	data,
+}: ReturnType<typeof useController>) => {
 	if (loading) {
 		return (
 			<Skeleton
@@ -19,29 +50,17 @@ export const ViewerChip = () => {
 			/>
 		)
 	}
-	const redirect = () => {
-		Router.push('/login')
-	}
-
-	if (!data?.viewer) {
-		cookies.remove('token')
+	if (!data?.viewer.user.id) {
 		return <Button onClick={redirect}>{f({ id: 'login' })}</Button>
 	}
-	if (!data.viewer.user.firstname) return null
-	const { firstname, picture } = data.viewer.user
-	const computedFirstname =
-		firstname.substring(0, 15) === firstname
-			? firstname
-			: `${firstname.substring(0, 12)}...`
 	return (
 		<Fragment>
-			{!picture && <Chip label={computedFirstname} />}
+			{!picture && <Chip label={firstname} />}
 			{picture && (
-				<Chip
-					avatar={<Avatar src={picture.url} />}
-					label={computedFirstname}
-				/>
+				<Chip avatar={<Avatar src={picture.url} />} label={firstname} />
 			)}
 		</Fragment>
 	)
 }
+
+export const ViewerChip = () => view(useController())

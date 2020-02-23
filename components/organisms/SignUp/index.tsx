@@ -18,7 +18,7 @@ import cookies from 'js-cookie'
 import Router from 'next/router'
 import { useSnackbar } from 'notistack'
 
-export const SignUp = () => {
+const useController = () => {
 	const { formatMessage: f } = useIntl()
 	const [signUp, { loading, data }] = useSignUpMutation()
 	const form = useFormik({
@@ -64,109 +64,112 @@ export const SignUp = () => {
 		})
 		Router.push('/onboarding')
 	}
-
-	return (
-		<Card>
-			<CardContent>
-				<Grid container spacing={3} justify='center'>
-					<Grid item xs={12} />
-					<Grid item xs={12}>
-						<Typography variant='h3' align='center'>
-							{f({ id: 'signup' })}
-						</Typography>
-					</Grid>
-					<Grid item xs={12} />
-					<Grid item xs={10}>
-						<TextField
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position='start'>
-										<Email />
-									</InputAdornment>
-								),
-							}}
-							required
-							type='email'
-							name='email'
-							helperText={form.errors.email}
-							error={!!form.errors.email}
-							value={form.values.email}
-							label={f({ id: 'email' })}
-							variant='filled'
-							onChange={form.handleChange}
-							fullWidth
-						/>
-					</Grid>
-					<Grid item xs={10}>
-						<TextField
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position='start'>
-										<VpnKey />
-									</InputAdornment>
-								),
-							}}
-							required
-							helperText={form.errors.password}
-							error={!!form.errors.password}
-							name='password'
-							type='password'
-							onChange={form.handleChange}
-							value={form.values.password}
-							label={f({ id: 'password' })}
-							variant='filled'
-							fullWidth
-						/>
-					</Grid>
-					<Grid item xs={10}>
-						<TextField
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position='start'>
-										<VpnKey />
-									</InputAdornment>
-								),
-							}}
-							required
-							type='password'
-							helperText={form.errors.passwordConfirmation}
-							error={!!form.errors.passwordConfirmation}
-							value={form.values.passwordConfirmation}
-							name='passwordConfirmation'
-							label={f({ id: 'confirm.password' })}
-							variant='filled'
-							onChange={form.handleChange}
-							onKeyPress={(ev) => {
-								if (ev.key === 'Enter') {
-									form.handleSubmit()
-									ev.preventDefault()
-								}
-							}}
-							fullWidth
-						/>
-					</Grid>
-					<Grid item xs={7}>
-						{!loading && (
-							<Button
-								variant='contained'
-								color='primary'
-								fullWidth
-								onClick={() => form.handleSubmit()}
-							>
-								{f({ id: 'enter' })}
-							</Button>
-						)}
-						{loading && (
-							<CircularProgress
-								style={{
-									display: 'block',
-									margin: '0 auto',
-								}}
-							/>
-						)}
-					</Grid>
-				</Grid>
-			</CardContent>
-		</Card>
-	)
+	return { form, f, loading }
 }
+
+const view = ({ form, loading, f }: ReturnType<typeof useController>) => (
+	<Card>
+		<CardContent>
+			<Grid container spacing={3} justify='center'>
+				<Grid item xs={12} />
+				<Grid item xs={12}>
+					<Typography variant='h3' align='center'>
+						{f({ id: 'signup' })}
+					</Typography>
+				</Grid>
+				<Grid item xs={12} />
+				<Grid item xs={10}>
+					<TextField
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position='start'>
+									<Email />
+								</InputAdornment>
+							),
+						}}
+						required
+						type='email'
+						name='email'
+						helperText={form.errors.email}
+						error={!!form.errors.email}
+						value={form.values.email}
+						label={f({ id: 'email' })}
+						variant='filled'
+						onChange={form.handleChange}
+						fullWidth
+					/>
+				</Grid>
+				<Grid item xs={10}>
+					<TextField
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position='start'>
+									<VpnKey />
+								</InputAdornment>
+							),
+						}}
+						required
+						helperText={form.errors.password}
+						error={!!form.errors.password}
+						name='password'
+						type='password'
+						onChange={form.handleChange}
+						value={form.values.password}
+						label={f({ id: 'password' })}
+						variant='filled'
+						fullWidth
+					/>
+				</Grid>
+				<Grid item xs={10}>
+					<TextField
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position='start'>
+									<VpnKey />
+								</InputAdornment>
+							),
+						}}
+						required
+						type='password'
+						helperText={form.errors.passwordConfirmation}
+						error={!!form.errors.passwordConfirmation}
+						value={form.values.passwordConfirmation}
+						name='passwordConfirmation'
+						label={f({ id: 'confirm.password' })}
+						variant='filled'
+						onChange={form.handleChange}
+						onKeyPress={(ev) => {
+							if (ev.key === 'Enter') {
+								form.handleSubmit()
+								ev.preventDefault()
+							}
+						}}
+						fullWidth
+					/>
+				</Grid>
+				<Grid item xs={7}>
+					{!loading && (
+						<Button
+							variant='contained'
+							color='primary'
+							fullWidth
+							onClick={() => form.handleSubmit()}
+						>
+							{f({ id: 'enter' })}
+						</Button>
+					)}
+					{loading && (
+						<CircularProgress
+							style={{
+								display: 'block',
+								margin: '0 auto',
+							}}
+						/>
+					)}
+				</Grid>
+			</Grid>
+		</CardContent>
+	</Card>
+)
+
+export const SignUp = () => view(useController())

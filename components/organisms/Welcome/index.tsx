@@ -7,18 +7,17 @@ import { ChangePassword } from '../../molecules/ChangePassword'
 import { PersonalInformations } from '../../molecules/PersonalInformations'
 import { LogOutButton } from '../../atoms/LogOutButton'
 
-export const Welcome = () => {
+const useController = () => {
 	const { loading, data } = useCommonViewerQuery()
 	const f = useIntl().formatMessage
-	if (loading) {
-		return null
-	}
 	if (!data?.viewer.user.id) {
 		Router.push('/login')
-		return null
 	}
+	return { loading, data, f }
+}
 
-	return (
+const view = ({ loading, data, f }: ReturnType<typeof useController>) =>
+	!loading && data?.viewer.user.id ? (
 		<Fade in>
 			<Fragment>
 				<Grid container spacing={3} justify='center'>
@@ -59,5 +58,9 @@ export const Welcome = () => {
 				</Grid>
 			</Fragment>
 		</Fade>
-	)
+	) : null
+
+export const Welcome = () => {
+	const controller = useController()
+	return view(controller)
 }

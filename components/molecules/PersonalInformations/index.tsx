@@ -10,25 +10,24 @@ import { useFormik } from 'formik'
 import { useSnackbar } from 'notistack'
 import * as Yup from 'yup'
 
-export const PersonalInformations = () => {
+const useController = () => {
 	const { loading, data } = useCommonViewerQuery()
+	const [updateUser] = useUpdateUserPersonalInformationsMutation()
 	const f = useIntl().formatMessage
 	const { enqueueSnackbar } = useSnackbar()
-	const [updateUser] = useUpdateUserPersonalInformationsMutation()
 	const [debounce, setDebounce] = useDebounce(true, 700)
 	const form = useFormik({
 		initialValues: {
 			firstname: '',
 			lastname: '',
 		},
-		onSubmit: async ({ firstname, lastname }) => {
+		onSubmit: async (values) => {
 			if (data?.viewer.user.id) {
 				try {
 					await updateUser({
 						variables: {
 							id: data.viewer.user.id,
-							firstname,
-							lastname,
+							...values,
 						},
 					})
 					enqueueSnackbar(f({ id: 'data.saved' }), {
@@ -46,6 +45,9 @@ export const PersonalInformations = () => {
 			lastname: Yup.string().required(f({ id: 'field.required' })),
 		}),
 	})
+	const onChangeCapture = () => {
+		setDebounce(!debounce)
+	}
 	useEffect(() => {
 		if (data) {
 			form.handleSubmit()
@@ -58,14 +60,17 @@ export const PersonalInformations = () => {
 			lastname: data?.viewer.user.lastname || '',
 		})
 	}, [data])
-	const onChangeCapture = () => {
-		setDebounce(!debounce)
-	}
-	if (loading || !data?.viewer.user.id) {
-		return null
-	}
+	return { form, onChangeCapture, loading, data, f }
+}
 
-	return (
+const view = ({
+	form,
+	onChangeCapture,
+	loading,
+	data,
+	f,
+}: ReturnType<typeof useController>) =>
+	!loading && data?.viewer.user.id ? (
 		<Fade in>
 			<Fragment>
 				<Typography variant='h5' color='textSecondary' gutterBottom>
@@ -105,5 +110,6 @@ export const PersonalInformations = () => {
 				</Grid>
 			</Fragment>
 		</Fade>
-	)
-}
+	) : null
+
+export const PersonalInformations = () => view(useController())

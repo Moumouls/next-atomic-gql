@@ -18,7 +18,7 @@ import Router from 'next/router'
 import { useLogInMutation } from '@graphql'
 import cookies from 'js-cookie'
 
-export const Login = () => {
+const useController = () => {
 	const { formatMessage: f } = useIntl()
 	const [login, { loading, data }] = useLogInMutation()
 	const { enqueueSnackbar } = useSnackbar()
@@ -57,87 +57,91 @@ export const Login = () => {
 		})
 		Router.push('/welcome')
 	}
-	return (
-		<Card>
-			<CardContent>
-				<Grid container spacing={3} justify='center'>
-					<Grid item xs={12} />
-					<Grid item xs={12}>
-						<Typography variant='h3' align='center'>
-							{f({ id: 'login' })}
-						</Typography>
-					</Grid>
-					<Grid item xs={12} />
-					<Grid item xs={10}>
-						<TextField
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position='start'>
-										<Email />
-									</InputAdornment>
-								),
-							}}
-							required
-							type='email'
-							name='email'
-							helperText={form.errors.email}
-							error={!!form.errors.email}
-							label={f({ id: 'email' })}
-							variant='filled'
-							onChange={form.handleChange}
-							value={form.values.email}
-							fullWidth
-						/>
-					</Grid>
-					<Grid item xs={10}>
-						<TextField
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position='start'>
-										<VpnKey />
-									</InputAdornment>
-								),
-							}}
-							required
-							type='password'
-							name='password'
-							helperText={form.errors.password}
-							error={!!form.errors.password}
-							label={f({ id: 'password' })}
-							variant='filled'
-							onChange={form.handleChange}
-							onKeyPress={(ev) => {
-								if (ev.key === 'Enter') {
-									form.handleSubmit()
-									ev.preventDefault()
-								}
-							}}
-							value={form.values.password}
-							fullWidth
-						/>
-					</Grid>
-					<Grid item xs={7}>
-						{!loading && (
-							<Button
-								variant='contained'
-								color='primary'
-								fullWidth
-								onClick={() => form.handleSubmit()}
-							>
-								{f({ id: 'enter' })}
-							</Button>
-						)}
-						{loading && (
-							<CircularProgress
-								style={{
-									display: 'block',
-									margin: '0 auto',
-								}}
-							/>
-						)}
-					</Grid>
-				</Grid>
-			</CardContent>
-		</Card>
-	)
+	return { form, f, loading }
 }
+
+const view = ({ form, f, loading }: ReturnType<typeof useController>) => (
+	<Card>
+		<CardContent>
+			<Grid container spacing={3} justify='center'>
+				<Grid item xs={12} />
+				<Grid item xs={12}>
+					<Typography variant='h3' align='center'>
+						{f({ id: 'login' })}
+					</Typography>
+				</Grid>
+				<Grid item xs={12} />
+				<Grid item xs={10}>
+					<TextField
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position='start'>
+									<Email />
+								</InputAdornment>
+							),
+						}}
+						required
+						type='email'
+						name='email'
+						helperText={form.errors.email}
+						error={!!form.errors.email}
+						label={f({ id: 'email' })}
+						variant='filled'
+						onChange={form.handleChange}
+						value={form.values.email}
+						fullWidth
+					/>
+				</Grid>
+				<Grid item xs={10}>
+					<TextField
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position='start'>
+									<VpnKey />
+								</InputAdornment>
+							),
+						}}
+						required
+						type='password'
+						name='password'
+						helperText={form.errors.password}
+						error={!!form.errors.password}
+						label={f({ id: 'password' })}
+						variant='filled'
+						onChange={form.handleChange}
+						onKeyPress={(ev) => {
+							if (ev.key === 'Enter') {
+								form.handleSubmit()
+								ev.preventDefault()
+							}
+						}}
+						value={form.values.password}
+						fullWidth
+					/>
+				</Grid>
+				<Grid item xs={7}>
+					{!loading && (
+						<Button
+							variant='contained'
+							color='primary'
+							fullWidth
+							onClick={() => form.handleSubmit()}
+						>
+							{f({ id: 'enter' })}
+						</Button>
+					)}
+					{loading && (
+						<CircularProgress
+							style={{
+								display: 'block',
+								margin: '0 auto',
+							}}
+						/>
+					)}
+				</Grid>
+			</Grid>
+		</CardContent>
+	</Card>
+)
+
+export const Login = () => view(useController())

@@ -233,7 +233,9 @@ import { useViewerQuery } from '@graphql'
 
 ## Code Quality/Security: Local SonarQube
 
-You need to have Docker installed on your system, then you can run `yarn sonarqube` (need to be launched once for your entire system/projects).
+You need to have Docker installed on your system, then you can run `yarn deploy-sonarqube` (need to be launched once for your entire system/projects).
+On OS/Docker reboot you can ensure that `sonarqube` is up with `yarn sonarqube`
+
 To run a scan `yarn scan` results are available at [http://localhost:9000](http://localhost:9000)
 
 ## Kubernetes/Rancher

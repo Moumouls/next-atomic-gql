@@ -13,7 +13,8 @@
 		"lint": "tsc --noEmit && prettier --write \"{components,pages}/**\" && eslint \"{components,pages}/**\"",
 		"refresh-schema": "get-graphql-schema -h X-Parse-Application-Id=dev -h X-Parse-Master-Key=dev http://localhost:1337/graphql > graphql/cloud-schema.graphql",
 		"scan": "sonar-scanner",
-		"sonarqube": "docker run -d --name sonarqube -p 9000:9000 sonarqube"
+		"deploy-sonarqube": "docker run -d --name sonarqube -p 9000:9000 sonarqube",
+		"sonarqube": "docker start sonarqube"
 	},
 	"husky": {
 		"hooks": {
