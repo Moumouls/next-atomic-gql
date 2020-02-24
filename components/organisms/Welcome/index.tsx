@@ -10,7 +10,7 @@ import { LogOutButton } from '../../atoms/LogOutButton'
 const useController = () => {
 	const { loading, data } = useCommonViewerQuery()
 	const f = useIntl().formatMessage
-	if (!data?.viewer.user.id) {
+	if (!loading && !data?.viewer.user.id) {
 		Router.push('/login')
 	}
 	return { loading, data, f }
