@@ -1,7 +1,7 @@
 const { readFileSync, writeFileSync } = require('fs')
 
 const file = readFileSync('graphql/cloud-schema.graphql', 'utf-8')
-	.replace(/"""The Upload scalar type/g, '')
+	.replace(/The Upload scalar type/g, '')
 	.replace(/`/g, '')
 
 writeFileSync('graphql/cloud-schema.graphql', file)
