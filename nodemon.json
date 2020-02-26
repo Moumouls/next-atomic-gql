@@ -1,5 +1,9 @@
 {
-	"watch": ["./graphql/cloud-schema.ts", "./graphql/local-schema.ts"],
+	"watch": [
+		"./graphql/cloud-schema.ts",
+		"./graphql/local-schema.ts",
+		"./graphql/mock/**/*"
+	],
 	"ext": "ts",
 	"ignore": ["src/**/*.spec.ts"],
 	"exec": "ts-node --skip-project ./graphql/mock/server.ts"
