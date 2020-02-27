@@ -18,10 +18,10 @@ module.exports = ({ config, mode }) => {
         '@graphql-mock': `${__dirname}/../graphql/mock/provider.tsx`,
         '@utils': `${__dirname}/../utils/index.tsx`,
         '@theme': `${__dirname}/../theme.ts`,
-		    '@organisms': `${__dirname}/../components/organisms/*`,
-		    '@molecules': `${__dirname}/../components/molecules/*`,
-	    	'@templates': `${__dirname}/../components/templates/*`,
-		    '@atoms': `${__dirname}/../components/atoms/*`
+		    '@organisms': `${__dirname}/../components/organisms/`,
+		    '@molecules': `${__dirname}/../components/molecules/`,
+	    	'@templates': `${__dirname}/../components/templates/`,
+		    '@atoms': `${__dirname}/../components/atoms/`
       }
     }
   });
