@@ -17,9 +17,14 @@
 		"isolatedModules": true,
 		"jsx": "preserve",
 		"paths": {
-			"@graphql": ["graphql/generated"],
-			"@graphql-mock": ["graphql/mock/provider"],
-			"@utils": ["utils/index"]
+			"@graphql": ["./graphql/generated"],
+			"@graphql-mock": ["./graphql/mock/provider"],
+			"@utils": ["./utils/index"],
+			"@theme": ["theme"],
+			"@atoms/*": ["components/atoms/*"],
+			"@molecules/*": ["components/molecules/*"],
+			"@organisms/*": ["components/organisms/*"],
+			"@templates/*": ["components/templates/*"]
 		}
 	},
 	"exclude": ["node_modules", "build"],

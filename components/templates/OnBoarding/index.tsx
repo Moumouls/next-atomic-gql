@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Grid } from '@material-ui/core'
-import { OnBoarding as OnBoardingOrganism } from '../../organisms/OnBoarding'
-import { TopBar } from '../../organisms/TopBar'
+import { OnBoarding as OnBoardingOrganism } from '@organisms/OnBoarding'
+import { TopBar } from '@organisms/TopBar'
 
 export const OnBoarding = () => (
 	<Fragment>

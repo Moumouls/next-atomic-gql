@@ -3,9 +3,9 @@ import { useCommonViewerQuery } from '@graphql'
 import Router from 'next/router'
 import { Fade, Grid, Typography } from '@material-ui/core'
 import { useIntl } from 'react-intl'
-import { ChangePassword } from '../../molecules/ChangePassword'
-import { PersonalInformations } from '../../molecules/PersonalInformations'
-import { LogOutButton } from '../../atoms/LogOutButton'
+import { ChangePassword } from '@molecules/ChangePassword'
+import { PersonalInformations } from '@molecules/PersonalInformations'
+import { LogOutButton } from '@atoms/LogOutButton'
 
 const useController = () => {
 	const { loading, data } = useCommonViewerQuery()

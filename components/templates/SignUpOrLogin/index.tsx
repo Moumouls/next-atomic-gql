@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react'
 import { Grid } from '@material-ui/core'
-import { Login } from '../../organisms/Login'
-import { SignUp } from '../../organisms/SignUp'
-import { TopBar } from '../../organisms/TopBar'
+import { Login } from '@organisms/Login'
+import { SignUp } from '@organisms/SignUp'
+import { TopBar } from '@organisms/TopBar'
 
 export const SignUpOrLogin = () => (
 	<Fragment>
