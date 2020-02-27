@@ -1,5 +1,5 @@
 import React from 'react'
-import { Welcome as WelcomeTemplate } from '../components/templates/Welcome'
+import { Welcome as WelcomeTemplate } from '@templates/Welcome'
 
 const Welcome = () => <WelcomeTemplate />
 

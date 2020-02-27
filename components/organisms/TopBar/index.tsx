@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography, IconButton, Grid } from '@material-ui/core'
 import { Menu } from '@material-ui/icons'
-import { ViewerChip } from '../../molecules/ViewerChip'
+import { ViewerChip } from '@molecules/ViewerChip'
 
 export const TopBar = () => (
 	<Grid

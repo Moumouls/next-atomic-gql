@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core'
 import { useSnackbar } from 'notistack'
 import { useUpdateUserOnBoardingMutation, useCommonViewerQuery } from '@graphql'
-import { theme } from '../../../theme'
+import { theme } from '@theme'
 
 const useController = () => {
 	const { formatMessage: f } = useIntl()

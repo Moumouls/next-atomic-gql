@@ -2392,7 +2392,7 @@ type UpdateUserPayload {
 }
 
 """
-The Upload scalar type represents a file upload.
+represents a file upload.
 """
 scalar Upload
 

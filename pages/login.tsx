@@ -1,5 +1,5 @@
 import React from 'react'
-import { SignUpOrLogin } from '../components/templates/SignUpOrLogin'
+import { SignUpOrLogin } from '@templates/SignUpOrLogin'
 
 const Login = () => <SignUpOrLogin />
 
