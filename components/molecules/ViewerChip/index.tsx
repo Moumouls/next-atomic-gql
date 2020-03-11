@@ -12,7 +12,7 @@ const useController = () => {
 	const redirect = () => {
 		Router.push('/login')
 	}
-	if (!data?.viewer) {
+	if (!loading && !data?.viewer.user.id) {
 		cookies.remove('token')
 	}
 	let firstname = data?.viewer.user.firstname
