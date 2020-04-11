@@ -5,14 +5,14 @@ stages:
                 dockerfilePath: ./Dockerfile
                 buildContext: .
                 # You need to modify this line here and into deployment.yml
-                tag: aDockerUser/aDockerRepo:next-atomic-front-${CICD_GIT_COMMIT}
+                tag: aDockerUser/aDockerRepo:${CICD_GIT_COMMIT}
                 pushRemote: true
                 registry: index.docker.io
       when:
           branch:
               include:
-                  - master
-                  - release
+                  - staging
+                  - prod
           event:
               include:
                   - push
@@ -22,6 +22,6 @@ stages:
                 path: ./deployment.yml
 branch:
     include:
-        - master
-        - release
+        - staging
+        - prod
 notification: {}

@@ -13,7 +13,7 @@ import fetch from 'node-fetch'
 import nextCookie from 'next-cookies'
 import cookies from 'js-cookie'
 import { IntlProvider } from 'react-intl'
-import { ThemeProvider, CssBaseline } from '@material-ui/core'
+import { ThemeProvider, CssBaseline, NoSsr } from '@material-ui/core'
 import intl from '../intl'
 import { theme } from '../theme'
 import { SnackbarProvider } from 'notistack'
@@ -21,6 +21,10 @@ import 'moment/locale/fr'
 
 class MyApp extends App {
 	client: any
+
+	static async getInitialProps() {
+		return {}
+	}
 
 	shouldComponentUpdate(nextProps) {
 		if (this.props.Component === nextProps.Component) {
@@ -83,7 +87,9 @@ class MyApp extends App {
 					<IntlProvider locale='fr' messages={intl.fr}>
 						<ThemeProvider theme={theme}>
 							<CssBaseline />
-							<Component {...pageProps} />
+							<NoSsr>
+								<Component {...pageProps} />
+							</NoSsr>
 						</ThemeProvider>
 					</IntlProvider>
 				</ApolloProvider>
