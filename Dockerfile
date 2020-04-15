@@ -8,6 +8,6 @@ COPY . /srv/app
 
 WORKDIR /srv/app
 
-RUN NODE_ENV=development yarn && yarn generate:ci && yarn build
+RUN NODE_ENV=development yarn && yarn generate:ci && yarn build && rm -rf node_modules && yarn --prod && yarn cache clean
 
 CMD yarn start
