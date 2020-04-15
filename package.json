@@ -45,7 +45,6 @@
 		"react": "16.12.0",
 		"react-dom": "16.12.0",
 		"react-intl": "^3.9.1",
-		"tsconfig-paths": "^3.9.0",
 		"yup": "^0.28.0"
 	},
 	"devDependencies": {
@@ -56,12 +55,7 @@
 		"@graphql-codegen/typescript": "^1.9.1",
 		"@graphql-codegen/typescript-operations": "^1.9.1",
 		"@graphql-codegen/typescript-react-apollo": "^1.9.1",
-		"@storybook/addon-actions": "^5.2.8",
 		"@storybook/addon-backgrounds": "^5.2.8",
-		"@storybook/addon-console": "^1.2.1",
-		"@storybook/addon-docs": "^5.2.8",
-		"@storybook/addon-links": "^5.2.8",
-		"@storybook/addon-storysource": "^5.2.8",
 		"@storybook/addon-viewport": "^5.2.8",
 		"@storybook/addons": "^5.2.8",
 		"@storybook/preset-typescript": "^1.1.0",
@@ -79,7 +73,6 @@
 		"@typescript-eslint/parser": "^2.10.0",
 		"apollo-link-schema": "^1.2.4",
 		"apollo-server": "^2.9.13",
-		"awesome-typescript-loader": "^5.2.1",
 		"babel-loader": "^8.0.6",
 		"babel-preset-react-app": "^9.1.0",
 		"concurrently": "^5.0.2",
@@ -94,7 +87,6 @@
 		"faker": "^4.1.0",
 		"get-graphql-schema": "^2.1.2",
 		"husky": "^3.1.0",
-		"next-server": "^9.0.5",
 		"nodemon": "^2.0.2",
 		"prettier": "^1.19.1",
 		"pretty-quick": "^2.0.1",
@@ -105,8 +97,6 @@
 		"storybook-addon-intl": "^2.4.1",
 		"storybook-addon-material-ui": "^0.9.0-alpha.20",
 		"tcp-port-used": "^1.0.1",
-		"ts-loader": "^6.2.1",
-		"ts-node": "^8.5.4",
 		"typescript": "^3.7.3"
 	}
 }

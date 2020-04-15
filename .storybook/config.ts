@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { configure, addParameters, addDecorator } from '@storybook/react';
 import { themes } from '@storybook/theming';
-import '@storybook/addon-console';
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 import { muiTheme } from 'storybook-addon-material-ui';
 import { withGQLProvider } from '@graphql-mock'
