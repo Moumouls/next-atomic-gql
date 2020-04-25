@@ -38,7 +38,7 @@
 		"graphql-tag": "^2.10.1",
 		"graphql-tools": "^4.0.6",
 		"js-cookie": "^2.2.1",
-		"next": "9.1.7",
+		"next": "9.3.2",
 		"next-cookies": "^2.0.3",
 		"node-fetch": "^2.6.0",
 		"notistack": "^0.9.7",
