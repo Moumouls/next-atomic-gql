@@ -19,9 +19,7 @@ FROM node:alpine as app
 
 WORKDIR /srv/app
 ENV NODE_ENV=production
-COPY --from=builder /srv/app/node_modules ./node_modules
-COPY --from=builder /srv/app/.next ./.next
-COPY --from=builder /srv/app/package.json ./package.json
+COPY --from=builder /srv/app .
 
 # Server run on 80
 CMD yarn start
