@@ -9,7 +9,10 @@ module.exports = ({ config, mode }) => {
         },
       },
       {
-        loader: require.resolve('react-docgen-typescript-loader'),
+        loader: require.resolve('ts-loader'),
+        options: {
+          transpileOnly: true
+        }
       },
     ],
     resolve: {
