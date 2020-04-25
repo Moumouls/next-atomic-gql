@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:alpine as builder
 ENV NODE_ENV=production
 
 RUN apk update && apk upgrade && \
@@ -15,4 +15,13 @@ yarn --prod && \
 yarn cache clean && \
 find ./node_modules -type f  \( -iname \*.d.ts -o -iname \*.js.map -o -iname \*.txt -o -iname \*.flow -o -iname \*.md -o -iname \*.test.js -o -iname \*.spec.js \) -delete
 
+FROM node:alpine as app
+
+WORKDIR /srv/app
+ENV NODE_ENV=production
+COPY --from=builder /srv/app/node_modules ./node_modules
+COPY --from=builder /srv/app/.next ./.next
+COPY --from=builder /srv/app/package.json ./package.json
+
+# Server run on 80
 CMD yarn start
