@@ -18,9 +18,10 @@ const useController = () => {
 	const [debounce, setDebounce] = useDebounce(true, 700)
 	const form = useFormik({
 		initialValues: {
-			firstname: '',
-			lastname: '',
+			firstname: data?.viewer.user.firstname || '',
+			lastname: data?.viewer.user.lastname || '',
 		},
+		enableReinitialize: true,
 		onSubmit: async (values) => {
 			if (data?.viewer.user.id) {
 				try {
@@ -53,13 +54,7 @@ const useController = () => {
 			form.handleSubmit()
 		}
 	}, [debounce])
-	useEffect(() => {
-		form.setValues({
-			...form.values,
-			firstname: data?.viewer.user.firstname || '',
-			lastname: data?.viewer.user.lastname || '',
-		})
-	}, [data])
+
 	return { form, onChangeCapture, loading, data, f }
 }
 

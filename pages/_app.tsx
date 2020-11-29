@@ -2,15 +2,13 @@
 // @ts-nocheck
 import React from 'react'
 import App from 'next/app'
-import { ApolloClient } from 'apollo-client'
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { ApolloLink } from 'apollo-link'
 import { BatchHttpLink } from 'apollo-link-batch-http'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { createUploadLink } from 'apollo-upload-client'
 import getConfig from 'next/config'
 import fetch from 'node-fetch'
-import nextCookie from 'next-cookies'
 import cookies from 'js-cookie'
 import { IntlProvider } from 'react-intl'
 import { ThemeProvider, CssBaseline, NoSsr } from '@material-ui/core'
@@ -71,8 +69,6 @@ class MyApp extends App {
 				cache: new InMemoryCache(),
 				defaultOptions: {
 					watchQuery: { fetchPolicy },
-					mutate: { fetchPolicy },
-
 					query: {
 						fetchPolicy,
 					},
