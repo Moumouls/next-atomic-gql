@@ -1,11 +1,12 @@
 // @ts-nocheck
 import React from 'react'
-import { ApolloClient } from 'apollo-client'
-import { InMemoryCache } from 'apollo-cache-inmemory'
-import { SchemaLink } from 'apollo-link-schema'
+import { ApolloClient, InMemoryCache } from '@apollo/client'
+import { SchemaLink } from '@apollo/client/link/schema'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { ApolloLink } from 'apollo-link'
-import { addMockFunctionsToSchema } from 'graphql-tools'
+import { addMocksToSchema } from '@graphql-tools/mock'
+import { applyMiddleware } from 'graphql-middleware'
+import LRUCache from 'lru-cache'
 import { Observable } from 'rxjs'
 import { mocks as globalMocks } from './mocks'
 import { mergeResolvers } from './mergeResolvers'
@@ -16,12 +17,27 @@ interface Props {
 	children: any
 }
 
+const cache = new LRUCache({ max: 2000, maxAge: 60 * 1000 })
+
+const cacheMiddleware = async (resolve, root, args, context, info) => {
+	const key = `${info.parentType.name}:${info.operation.name.value}:${
+		info.fieldName
+	}:${JSON.stringify(args)}`
+	if (cache.get(key)) return cache.get(key)
+	const result = await resolve(root, args, context, info)
+	cache.set(key, result)
+	return result
+}
+
 export const GQLProvider = ({ customResolvers = {}, children }: Props) => {
 	const mocks = mergeResolvers(globalMocks, customResolvers)
-	addMockFunctionsToSchema({ schema, mocks })
-
 	const client = new ApolloClient({
-		link: new SchemaLink({ schema }),
+		link: new SchemaLink({
+			schema: applyMiddleware(
+				addMocksToSchema({ schema, mocks }),
+				cacheMiddleware,
+			),
+		}),
 		cache: new InMemoryCache(),
 	})
 	return <ApolloProvider client={client}>{children}</ApolloProvider>

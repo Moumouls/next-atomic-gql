@@ -1,13 +1,11 @@
 import { ApolloServer } from 'apollo-server'
 import { check } from 'tcp-port-used'
-import { addMockFunctionsToSchema } from 'graphql-tools'
+import { addMocksToSchema } from '@graphql-tools/mock'
 import { schema } from './schema'
 import { mocks } from './mocks'
 
-addMockFunctionsToSchema({ schema, mocks })
-
 const server = new ApolloServer({
-	schema,
+	schema: addMocksToSchema({ schema, mocks }),
 	playground: true,
 })
 

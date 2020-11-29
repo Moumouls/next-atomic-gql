@@ -19,17 +19,6 @@ addDecorator(snackbarDecorator)
 addDecorator(withGQLProvider);
 addDecorator(withIntl);
 addDecorator(muiTheme([theme]))
-addParameters({
-  options: {
-    theme: themes.dark,
-  },
-});
-addParameters({
-  backgrounds: [
-    { name: 'white', value: '#fff', default: true},
-    { name: 'dark', value: '#121212' },
-  ],
-});
 
 // automatically import all files ending in *.stories.js
 configure(require.context('../components/', true, /stories\.tsx$/), module);
