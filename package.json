@@ -37,7 +37,7 @@
 		"graphql-tools": "^7.0.2",
 		"js-cookie": "^2.2.1",
 		"moment": "^2.29.1",
-		"next": "10.0.3",
+		"next": "11.1.0",
 		"next-cookies": "^2.0.3",
 		"node-fetch": "^2.6.1",
 		"notistack": "^1.0.2",
