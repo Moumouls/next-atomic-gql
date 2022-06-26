@@ -39,7 +39,7 @@
 		"moment": "^2.29.1",
 		"next": "10.0.3",
 		"next-cookies": "^2.0.3",
-		"node-fetch": "^2.6.1",
+		"node-fetch": "^2.6.7",
 		"notistack": "^1.0.2",
 		"react": "17.0.1",
 		"react-dom": "17.0.1",
