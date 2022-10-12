@@ -74,7 +74,7 @@
 		"@typescript-eslint/eslint-plugin": "^4.8.2",
 		"@typescript-eslint/parser": "^4.8.2",
 		"apollo-link-schema": "^1.2.5",
-		"apollo-server": "^2.19.0",
+		"apollo-server": "^2.25.4",
 		"babel-loader": "^8.2.2",
 		"babel-preset-react-app": "^10.0.0",
 		"concurrently": "^5.3.0",
